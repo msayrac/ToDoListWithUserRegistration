@@ -2,21 +2,23 @@
 
 {% block content %}
 
-    {% if request.user.is_authenticated %}
-        <p> User : {{request.user}}</p>
+<div class="header-bar">
+    <div>
+        <h1>Hello {{request.user|title}}</h1>
+        <h3 style="margin:0">You have <i>{{count}}</i> incomplete task{{count|pluralize:"s"}}</h3>
+    </div>
 
+    {% if request.user.is_authenticated %}        
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit">Logout</button>
-        </form>
-        
+        </form>        
     {% else %}
         <a href="{% url 'login' %}">Login</a>
     {% endif %}
-
-
-    <hr>
-
+</div>
+   
+<hr>
     <h3>My To Do List {{color}}</h3>
     <a href="{% url 'task-create' %}">Add Task</a>
 
